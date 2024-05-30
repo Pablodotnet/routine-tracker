@@ -64,7 +64,6 @@ export const useForm = (
         : errorMessage;
     }
     setFormValidation(formCheckedValues);
-    console.log(formCheckedValues);
   };
 
   return {

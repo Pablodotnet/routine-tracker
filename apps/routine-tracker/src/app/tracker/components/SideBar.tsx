@@ -12,12 +12,14 @@ import {
   Toolbar,
   Typography,
 } from '@mui/material';
+import { useAppSelector } from '../../hooks';
 
 type SideBarProps = {
   drawerWidth: number;
 };
 
 export const SideBar = ({ drawerWidth }: SideBarProps) => {
+  const { displayName } = useAppSelector((state) => state.auth);
   return (
     <Box
       component="nav"
@@ -33,7 +35,7 @@ export const SideBar = ({ drawerWidth }: SideBarProps) => {
       >
         <Toolbar>
           <Typography variant="h6" noWrap component="div">
-            Tracker
+            {displayName}
           </Typography>
         </Toolbar>
         <Divider />

@@ -16,7 +16,6 @@ import { startGoogleSignIn, startLoginWithEmailPassword } from '../../store';
 export const LoginPage = () => {
   const dispatch = useAppDispatch();
   const { status, errorMessage } = useAppSelector((state) => state.auth);
-  console.log({ status, errorMessage });
   const { email, password, onInputChange } = useForm({
     email: 'pablo@correo.com',
     password: '123456',
@@ -25,12 +24,10 @@ export const LoginPage = () => {
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!isAuthenticating) {
-      console.log('dispatch login triggered');
       dispatch(startLoginWithEmailPassword({ email, password }));
     }
   };
   const onGoogleSignIn = () => {
-    console.log('onGoogleSignIn');
     dispatch(startGoogleSignIn());
   };
 

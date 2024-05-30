@@ -1,5 +1,6 @@
 import {
   loginWithEmailAndPassword,
+  logoutFirebase,
   registerUserWithEmailPassword,
   signInWithGoogle,
 } from '../../firebase/providers';
@@ -17,7 +18,6 @@ export const startGoogleSignIn = () => {
   return async (dispatch: AppDispatch) => {
     dispatch(checkingCredentials());
     const result = await signInWithGoogle();
-    console.log('🚀 ~ file: thunks.ts:16 ~ return ~ result:', result);
     if (!result.ok) {
       return dispatch(logout(result.errorMessage));
     }
@@ -53,10 +53,16 @@ export const startLoginWithEmailPassword = ({
     dispatch(checkingCredentials());
     const { ok, uid, photoURL, displayName, errorMessage } =
       await loginWithEmailAndPassword({ email, password });
-    console.log({ ok, uid, photoURL, displayName, errorMessage });
     if (!ok) {
       return dispatch(logout({ errorMessage }));
     }
     dispatch(login({ uid, displayName, email, photoURL }));
+  };
+};
+
+export const startLogout = () => {
+  return async (dispatch: AppDispatch) => {
+    await logoutFirebase();
+    dispatch(logout({}));
   };
 };
