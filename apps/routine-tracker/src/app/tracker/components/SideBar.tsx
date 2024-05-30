@@ -34,7 +34,12 @@ export const SideBar = ({ drawerWidth }: SideBarProps) => {
         }}
       >
         <Toolbar>
-          <Typography variant="h6" noWrap component="div">
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            textTransform="capitalize"
+          >
             {displayName}
           </Typography>
         </Toolbar>
