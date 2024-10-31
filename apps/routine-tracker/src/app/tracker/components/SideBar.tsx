@@ -1,23 +1,16 @@
-import { TurnedInNot } from '@mui/icons-material';
-import {
-  Box,
-  Divider,
-  Drawer,
-  Grid,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  Toolbar,
-  Typography,
-} from '@mui/material';
+import { Box, Divider, Drawer, List, Toolbar, Typography } from '@mui/material';
+import { useAppSelector } from '../../hooks';
+import { Routine } from '../../types';
+import { SideBarItem } from './SideBarItem';
 
 type SideBarProps = {
   drawerWidth: number;
 };
 
 export const SideBar = ({ drawerWidth }: SideBarProps) => {
+  const { displayName } = useAppSelector((state) => state.auth);
+  const { routines } = useAppSelector((state) => state.routines);
+
   return (
     <Box
       component="nav"
@@ -32,23 +25,19 @@ export const SideBar = ({ drawerWidth }: SideBarProps) => {
         }}
       >
         <Toolbar>
-          <Typography variant="h6" noWrap component="div">
-            Tracker
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            textTransform="capitalize"
+          >
+            {displayName}
           </Typography>
         </Toolbar>
         <Divider />
         <List>
-          {['Routine One', 'Routine Two', 'Routine Three'].map((text) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  <TurnedInNot />
-                </ListItemIcon>
-                <Grid container>
-                  <ListItemText primary={text} />
-                </Grid>
-              </ListItemButton>
-            </ListItem>
+          {routines.map((routine: Routine) => (
+            <SideBarItem key={routine.id} routine={routine} />
           ))}
         </List>
       </Drawer>

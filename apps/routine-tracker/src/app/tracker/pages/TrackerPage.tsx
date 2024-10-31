@@ -2,13 +2,22 @@ import { AddOutlined } from '@mui/icons-material';
 import { TrackerLayout } from '../layout/TrackerLayout';
 import { NoteView, NothingSelectedView } from '../views';
 import { IconButton } from '@mui/material';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { startNewRoutine } from '../../store/routines/thunks';
 
 export const TrackerPage = () => {
+  const dispatch = useAppDispatch();
+  const onClickNewRoutine = () => {
+    dispatch(startNewRoutine());
+  };
+  const { isSaving, active } = useAppSelector((state) => state.routines);
+
   return (
     <TrackerLayout>
-      <NothingSelectedView />
-      {/* <NoteView /> */}
+      {active ? <NoteView /> : <NothingSelectedView />}
       <IconButton
+        disabled={isSaving}
+        onClick={onClickNewRoutine}
         size="large"
         sx={{
           color: 'white',
