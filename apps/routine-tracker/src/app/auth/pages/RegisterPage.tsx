@@ -13,9 +13,9 @@ import { FormEvent, useMemo, useState } from 'react';
 import { startCreatingUserWithEmailPassword } from '../../store';
 
 const formData = {
-  displayName: 'Pablo',
-  email: 'pablo@correo.com',
-  password: '123456',
+  displayName: '',
+  email: '',
+  password: '',
 };
 
 const formValidations = {

@@ -1,7 +1,11 @@
 import { SaveOutlined } from '@mui/icons-material';
 import { Button, Grid, Typography, TextField } from '@mui/material';
+import { useAppSelector } from '../../hooks';
+import { Routine } from '../../types';
 
 export const NoteView = () => {
+  const { active } = useAppSelector((state) => state.routines);
+
   return (
     <Grid
       className="animate__animated animate__fadeIn animate__faster"
@@ -12,7 +16,7 @@ export const NoteView = () => {
     >
       <Grid item>
         <Typography fontSize={39} fontWeight="light">
-          Something
+          {active ? (active as Routine).title : ''}
         </Typography>
       </Grid>
       <Grid item>
@@ -26,8 +30,9 @@ export const NoteView = () => {
           type="text"
           variant="filled"
           fullWidth
-          placeholder="Write a name"
-          label="Name"
+          placeholder="Write a title"
+          label="Title"
+          value={`${active ? (active as Routine).title : null}`}
           sx={{ border: 'none', mb: 1 }}
         />
         <TextField
@@ -37,6 +42,7 @@ export const NoteView = () => {
           placeholder="Description"
           label="Description"
           sx={{ border: 'none', mb: 1 }}
+          value={`${active ? (active as Routine).description : null}`}
           multiline
           minRows={3}
         />
